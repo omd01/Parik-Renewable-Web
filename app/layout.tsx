@@ -1,9 +1,19 @@
 import type { Metadata } from 'next'
-import { Outfit } from 'next/font/google'
+import { Inter_Tight, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const outfit = Outfit({ subsets: ["latin"] });
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  variable: '--font-inter-tight',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Parikh Renewable - Sustainable Energy Solutions',
@@ -31,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${outfit.className} font-sans antialiased`}>
+      <body className={`${interTight.variable} ${jetbrainsMono.variable} font-sans antialiased bg-zinc-50 text-zinc-900`}>
         {children}
         <Analytics />
       </body>
