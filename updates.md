@@ -70,3 +70,7 @@
     - **Fixed Mobile Footer Collision**: Added `pb-32` padding to the Projects section on mobile to prevent footer overlap.
     - Implemented reliable image placeholders with fallback.
     - Optimized mobile padding and structure.
+- [x] **Electric Services Page Refactor**:
+    - Completely redesigned `app/services/electric/page.tsx` with "Grid" aesthetic.
+    - Added Impact Stats, Core Services Bento Grid, Industries Marquee, and Project Showcase.
+    - Implemented FAQ accordion section.
