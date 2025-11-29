@@ -9,6 +9,7 @@ import Image from 'next/image'
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
+  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false)
 
   const menuVariants = {
     closed: {
@@ -65,6 +66,29 @@ export default function Header() {
             >
               About
             </Link>
+
+            {/* Solutions Dropdown */}
+            <div className="relative group">
+              <button className="flex items-center gap-1 font-mono text-xs font-bold text-zinc-700 hover:text-[#193354] transition-colors uppercase tracking-wider py-2">
+                Solutions <ChevronDown className="w-3 h-3" />
+              </button>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
+                <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+                  <Link href="/solutions/on-grid" className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-[#193354] transition-colors border-b border-gray-50">
+                    On Grid Solar System
+                  </Link>
+                  <Link href="/solutions/off-grid" className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-[#193354] transition-colors border-b border-gray-50">
+                    Off Grid Solar System
+                  </Link>
+                  <Link href="/solutions/water-pump" className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-[#193354] transition-colors border-b border-gray-50">
+                    Solar Water Pump System
+                  </Link>
+                  <Link href="/solutions/bos-materials" className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-[#193354] transition-colors">
+                    Solar BOS Materials
+                  </Link>
+                </div>
+              </div>
+            </div>
 
             {/* Services Dropdown */}
             <div className="relative group">
@@ -143,6 +167,32 @@ export default function Header() {
                 </Link>
               </motion.div>
 
+              {/* Mobile Solutions Dropdown */}
+              <motion.div variants={linkVariants} custom={1.5} className="flex flex-col items-center w-full">
+                <button
+                  onClick={() => setMobileSolutionsOpen(!mobileSolutionsOpen)}
+                  className="text-4xl font-bold text-white hover:text-[#F0B448] transition-colors tracking-tighter flex items-center gap-2"
+                >
+                  Solutions <ChevronDown className={`w-6 h-6 transition-transform ${mobileSolutionsOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {mobileSolutionsOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden flex flex-col items-center gap-4 mt-4 bg-white/5 rounded-xl w-full px-8 py-4"
+                    >
+                      <Link href="/solutions/on-grid" onClick={() => setIsOpen(false)} className="text-xl text-gray-300 hover:text-white text-center">On Grid Solar System</Link>
+                      <Link href="/solutions/off-grid" onClick={() => setIsOpen(false)} className="text-xl text-gray-300 hover:text-white text-center">Off Grid Solar System</Link>
+                      <Link href="/solutions/water-pump" onClick={() => setIsOpen(false)} className="text-xl text-gray-300 hover:text-white text-center">Solar Water Pump System</Link>
+                      <Link href="/solutions/bos-materials" onClick={() => setIsOpen(false)} className="text-xl text-gray-300 hover:text-white text-center">Solar BOS Materials</Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* Mobile Services Dropdown */}
               <motion.div variants={linkVariants} custom={2} className="flex flex-col items-center w-full">
                 <button
                   onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
