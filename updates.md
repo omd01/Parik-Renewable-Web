@@ -28,6 +28,11 @@
     - 5-Card Bento Grid for key components.
     - 6-Step "How It Works" timeline.
     - Applications grid and Maintenance section.
+- [x] **Solar Water Pump Page**: Implemented full page at `/solutions/water-pump` with:
+    - Hero section with generated agricultural pump visual.
+    - PM-KUSUM Subsidy feature block (90% subsidy).
+    - Solar vs. Traditional Pump comparison grid.
+    - Component breakdown and Applications grid.
 - [x] **Layout Refinements**:
     - Fixed mobile typography overflow.
     - Component breakdown and Benefits grid.
