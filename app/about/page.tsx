@@ -284,7 +284,7 @@ export default function About() {
                 </div>
                 <div className="flex gap-3">
                   <MapPin className="w-5 h-5 text-zinc-400 flex-shrink-0" />
-                  <p><strong className="text-zinc-900">Branch:</strong> Teacher Colony, Beed - 431122</p>
+                  <p><strong className="text-zinc-900">Address 2:</strong> Teacher Colony Behind S.T Stand Beed 431122</p>
                 </div>
               </div>
             </div>
