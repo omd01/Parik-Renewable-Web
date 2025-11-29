@@ -159,7 +159,7 @@ export default function Home() {
           >
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex gap-20 items-center">
-                {['TATA MOTORS', 'BAJAJ', 'SIEMENS', 'L&T', 'GODREJ', 'MAHINDRA', 'RELIANCE', 'ADANI'].map((client, j) => (
+                {['TATA MOTORS', 'BAJAJ', 'SIEMENS', 'L&T', 'GODREJ', 'MAHINDRA', 'RELIANCE', 'ADANI', 'WAAREE', 'EASTMAN'].map((client, j) => (
                   <span key={j} className="text-4xl md:text-6xl font-bold text-zinc-200 select-none">
                     {client}
                   </span>
@@ -294,10 +294,10 @@ export default function Home() {
             {/* Scrolling Projects */}
             <div className="md:w-2/3">
               {[
-                { title: "Industrial Solar Plant", loc: "Aurangabad", cap: "500 kW", img: "/placeholder.svg?key=proj1" },
-                { title: "Commercial Complex", loc: "Pune", cap: "100 kW", img: "/placeholder.svg?key=proj2" },
-                { title: "Factory Warehouse", loc: "Nagpur", cap: "1 MW", img: "/placeholder.svg?key=proj5" },
-                { title: "Hospital Rooftop", loc: "Sambhaji Nagar", cap: "200 kW", img: "/placeholder.svg?key=proj6" }
+                { title: "Industrial Solar Plant", loc: "Aurangabad", cap: "500 kW", img: "/Industrial-Solar-Plant.png" },
+                { title: "Commercial Complex", loc: "Pune", cap: "100 kW", img: "/Commercial-Complex.png" },
+                { title: "Factory Warehouse", loc: "Nagpur", cap: "1 MW", img: "/Factory-Warehouse.png" },
+                { title: "Hospital Rooftop", loc: "Sambhaji Nagar", cap: "200 kW", img: "/Hospital-Rooftop.png" }
               ].map((project, i) => (
                 <div key={i} className="h-auto md:h-screen flex items-center justify-center p-4 md:p-20 border-b border-zinc-100 bg-white">
                   <motion.div

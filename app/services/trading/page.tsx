@@ -102,7 +102,7 @@ export default function MaterialTrading() {
                     >
                         {[...Array(2)].map((_, i) => (
                             <div key={i} className="flex gap-20 items-center">
-                                {['L&T ELECTRICAL & AUTOMATION', 'POLYCAB', 'WAAREE', 'EASTMAN', 'SECURE METERS', 'HAVELLS', 'SCHNEIDER ELECTRIC', 'ABB', 'KEI CABLES'].map((brand, j) => (
+                                {['L&T ELECTRICAL & AUTOMATION', 'POLYCAB', 'SECURE METERS', 'HAVELLS', 'SCHNEIDER ELECTRIC', 'ABB', 'KEI CABLES'].map((brand, j) => (
                                     <span key={j} className="text-2xl md:text-4xl font-mono font-bold text-zinc-300 select-none">
                                         {brand}
                                     </span>

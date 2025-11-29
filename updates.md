@@ -37,6 +37,17 @@
     - Hero section with generated industrial visual.
     - Product Catalog (3x2 Bento Grid) with safety theme.
     - Circuit Flow visualization and Safety Benefits.
+- [x] **About Page Refactor**: Updated `/about` with:
+    - **Leadership Card**: Founder & CEO profile with quote.
+    - **Corporate DNA**: Capability matrix highlighting Government Contractor status.
+    - **Trust & Certifications**: GEM Approved and Strategic Partner badges.
+    - **Presence**: HQ (Aurangabad) and Branch (Beed) address cards.
+- [x] **About Page Scrollytelling**: Finalized `/about` with:
+    - **Hero**: "Powering India" split-screen design.
+    - **Core Values**: Mosaic grid with Vision, Mission, and 5 core values.
+    - **Why Solar**: Infinite scroll marquee with key benefits.
+    - **Execution Process**: 8-step vertical timeline with scroll interactions.
+    - **Capability & Compliance**: Consolidated grid with Technology, Safety, and Legal info.
 - [x] **Layout Refinements**:
     - Fixed mobile typography overflow.
     - Component breakdown and Benefits grid.

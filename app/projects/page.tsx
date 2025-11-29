@@ -14,7 +14,7 @@ export default function Projects() {
       category: "Industrial",
       capacity: "500 kW",
       location: "Aurangabad",
-      image: "/placeholder.svg?key=proj1",
+      image: "/Industrial-Solar-Plant.png",
       desc: "High-efficiency module installation for heavy machinery power requirements."
     },
     {
@@ -22,7 +22,7 @@ export default function Projects() {
       category: "Commercial",
       capacity: "100 kW",
       location: "Pune",
-      image: "/placeholder.svg?key=proj2",
+      image: "/Commercial-Complex.png",
       desc: "Rooftop solution maximizing space utilization for a shopping complex."
     },
     {
@@ -46,7 +46,7 @@ export default function Projects() {
       category: "Industrial",
       capacity: "1 MW",
       location: "Nagpur",
-      image: "/placeholder.svg?key=proj5",
+      image: "/Factory-Warehouse.png",
       desc: "Large-scale industrial rooftop project."
     },
     {
@@ -54,7 +54,7 @@ export default function Projects() {
       category: "Institutional",
       capacity: "200 kW",
       location: "Sambhaji Nagar",
-      image: "/placeholder.svg?key=proj6",
+      image: "/Hospital-Rooftop.png",
       desc: "Reliable power backup and savings for a healthcare facility."
     }
   ]
