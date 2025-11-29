@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Sun, Zap, Battery, ArrowRight, CheckCircle2, BarChart3, Home, Settings, ShieldCheck, TrendingUp } from 'lucide-react'
+import { Sun, Zap, Battery, ArrowRight, CheckCircle2, BarChart3, Home, Settings, ShieldCheck, TrendingUp, Landmark } from 'lucide-react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Image from 'next/image'
@@ -176,6 +176,52 @@ export default function OnGridSolar() {
                                 <h4 className="text-xl font-bold mb-2 text-blue-400">Free Electricity</h4>
                                 <p className="text-zinc-400">Next 20+ Years</p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 4.5 Subsidy Structure */}
+            <section className="py-24 px-4 md:px-8 bg-white">
+                <div className="max-w-4xl mx-auto">
+                    {/* Official Note Header */}
+                    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl mb-12 flex items-start gap-4">
+                        <Landmark className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" />
+                        <div>
+                            <h3 className="font-bold text-yellow-800 text-lg mb-1">Government Subsidy Notice</h3>
+                            <p className="text-yellow-700 text-sm">
+                                Subsidy benefits will be given as per the Central Government rule (As per MNRE Rooftop solar subsidy).
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Benefit Grid */}
+                    <div className="border border-zinc-200 rounded-2xl overflow-hidden shadow-sm">
+                        {/* Header Row */}
+                        <div className="hidden md:grid grid-cols-2 bg-zinc-900 text-white p-4 font-bold tracking-wider text-sm uppercase">
+                            <div>Plant Capacity</div>
+                            <div>Applicable Subsidy</div>
+                        </div>
+
+                        {/* Data Rows */}
+                        <div className="divide-y divide-zinc-100">
+                            {[
+                                { cap: "Up to 2 kW", sub: "₹30,000 per kW" },
+                                { cap: "Above 2 kW – 3 kW", sub: "₹30,000/kW (first 3 kW) + ₹18,000/kW thereafter" },
+                                { cap: "Above 3 kW", sub: "₹78,000 (Fixed Amount)" },
+                                { cap: "For 3 kW", sub: "₹78,000" },
+                            ].map((row, i) => (
+                                <div key={i} className={`grid grid-cols-1 md:grid-cols-2 p-6 md:p-4 gap-2 md:gap-0 ${i % 2 === 0 ? 'bg-zinc-50' : 'bg-white'}`}>
+                                    <div className="font-bold text-[#193354] md:font-normal md:text-zinc-900">
+                                        <span className="md:hidden text-xs text-zinc-400 uppercase tracking-wider block mb-1">Capacity</span>
+                                        {row.cap}
+                                    </div>
+                                    <div className="font-mono text-[#193354] font-bold">
+                                        <span className="md:hidden text-xs text-zinc-400 uppercase tracking-wider block mb-1">Subsidy</span>
+                                        {row.sub}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

@@ -60,6 +60,10 @@
     - Updated `app/projects/page.tsx` and `app/about/page.tsx` to use local image paths.
     - Downloaded labeled placeholders for missing images (Residential Villa, School Campus, Industrial Roof, Founder).
     - Fixed a syntax error in `app/projects/page.tsx`.
+- [x] **Subsidy Structure (On-Grid)**:
+    - Added a new section to `app/solutions/on-grid/page.tsx` with "Official Document" styling.
+    - Implemented a responsive data grid for subsidy benefits.
+    - Added a "Government Notice" banner with the `Landmark` icon.
 - [x] **Layout Refinements**:
     - Fixed mobile typography overflow.
     - Component breakdown and Benefits grid.
