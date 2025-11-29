@@ -38,7 +38,7 @@ export default function About() {
         </div>
         <div className="flex-1 relative min-h-[50vh] md:min-h-screen bg-zinc-900">
           <Image
-            src="/Industrial-Solar-Roof.png"
+            src="/Industrial-Solar-Plant.png"
             alt="Industrial Solar Rooftop"
             fill
             className="object-cover opacity-80"
