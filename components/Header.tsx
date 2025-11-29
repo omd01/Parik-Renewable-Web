@@ -1,11 +1,14 @@
+'use client'
+
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { Menu, X, ArrowUpRight, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
-import Image from 'next/image' // <--- 1. ADD THIS IMPORT
+import Image from 'next/image'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
 
   const menuVariants = {
     closed: {
@@ -47,7 +50,6 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 z-50 relative flex-shrink-0">
             <div className="w-10 h-10 md:w-8 md:h-8 rounded-full flex items-center justify-center flex-shrink-0">
-              {/* 2. FIXED SYNTAX ERROR BELOW (Removed extra < and >) */}
               <Image src="/icon.png" alt="Logo" width={50} height={50} />
             </div>
             <span className="font-mono text-sm font-bold tracking-widest text-[#193354] hidden md:block">
@@ -57,15 +59,45 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            {['About', 'Services', 'Projects', 'Contact'].map((item) => (
-              <Link
-                key={item}
-                href={`/${item.toLowerCase()}`}
-                className="font-mono text-xs font-bold text-zinc-700 hover:text-[#193354] transition-colors uppercase tracking-wider"
-              >
-                {item}
-              </Link>
-            ))}
+            <Link
+              href="/about"
+              className="font-mono text-xs font-bold text-zinc-700 hover:text-[#193354] transition-colors uppercase tracking-wider"
+            >
+              About
+            </Link>
+
+            {/* Services Dropdown */}
+            <div className="relative group">
+              <button className="flex items-center gap-1 font-mono text-xs font-bold text-zinc-700 hover:text-[#193354] transition-colors uppercase tracking-wider py-2">
+                Services <ChevronDown className="w-3 h-3" />
+              </button>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
+                <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+                  <Link href="/services" className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-[#193354] transition-colors border-b border-gray-50">
+                    Solar Services
+                  </Link>
+                  <Link href="/services/electric" className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-[#193354] transition-colors border-b border-gray-50">
+                    Electric Services
+                  </Link>
+                  <Link href="/services/trading" className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-[#193354] transition-colors">
+                    Material Trading
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <Link
+              href="/projects"
+              className="font-mono text-xs font-bold text-zinc-700 hover:text-[#193354] transition-colors uppercase tracking-wider"
+            >
+              Projects
+            </Link>
+            <Link
+              href="/contact"
+              className="font-mono text-xs font-bold text-zinc-700 hover:text-[#193354] transition-colors uppercase tracking-wider"
+            >
+              Contact
+            </Link>
           </nav>
 
           {/* CTA Button (Desktop) */}
@@ -96,24 +128,55 @@ export default function Header() {
             initial="closed"
             animate="open"
             exit="closed"
-            className="fixed inset-0 bg-zinc-950/95 backdrop-blur-md z-40 flex flex-col justify-center items-center"
+            className="fixed inset-0 bg-zinc-950/95 backdrop-blur-md z-40 flex flex-col justify-center items-center overflow-y-auto"
           >
-            <div className="flex flex-col items-center gap-8">
-              {['Home', 'About', 'Services', 'Projects', 'Contact'].map((item, i) => (
-                <motion.div
-                  key={item}
-                  custom={i}
-                  variants={linkVariants}
+            <div className="flex flex-col items-center gap-6 py-10">
+              <motion.div variants={linkVariants} custom={0}>
+                <Link href="/" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-white hover:text-[#F0B448] transition-colors tracking-tighter">
+                  Home
+                </Link>
+              </motion.div>
+
+              <motion.div variants={linkVariants} custom={1}>
+                <Link href="/about" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-white hover:text-[#F0B448] transition-colors tracking-tighter">
+                  About
+                </Link>
+              </motion.div>
+
+              <motion.div variants={linkVariants} custom={2} className="flex flex-col items-center w-full">
+                <button
+                  onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                  className="text-4xl font-bold text-white hover:text-[#F0B448] transition-colors tracking-tighter flex items-center gap-2"
                 >
-                  <Link
-                    href={`/${item.toLowerCase() === 'home' ? '' : item.toLowerCase()}`}
-                    onClick={() => setIsOpen(false)}
-                    className="text-5xl md:text-6xl font-bold text-white hover:text-[#F0B448] transition-colors tracking-tighter"
-                  >
-                    {item}
-                  </Link>
-                </motion.div>
-              ))}
+                  Services <ChevronDown className={`w-6 h-6 transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {mobileServicesOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden flex flex-col items-center gap-4 mt-4 bg-white/5 rounded-xl w-full px-8 py-4"
+                    >
+                      <Link href="/services" onClick={() => setIsOpen(false)} className="text-xl text-gray-300 hover:text-white">Solar Services</Link>
+                      <Link href="/services/electric" onClick={() => setIsOpen(false)} className="text-xl text-gray-300 hover:text-white">Electric Services</Link>
+                      <Link href="/services/trading" onClick={() => setIsOpen(false)} className="text-xl text-gray-300 hover:text-white">Material Trading</Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              <motion.div variants={linkVariants} custom={3}>
+                <Link href="/projects" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-white hover:text-[#F0B448] transition-colors tracking-tighter">
+                  Projects
+                </Link>
+              </motion.div>
+
+              <motion.div variants={linkVariants} custom={4}>
+                <Link href="/contact" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-white hover:text-[#F0B448] transition-colors tracking-tighter">
+                  Contact
+                </Link>
+              </motion.div>
 
               <motion.div
                 custom={5}
