@@ -99,7 +99,7 @@ export default function Services() {
               {[
                 { title: "Civil Works", icon: Factory, desc: "Foundations & Structures" },
                 { title: "Electrical", icon: Zap, desc: "HT/LT Installations" },
-                { title: "Trading", icon: Battery, desc: "Panels & Inverters" }
+                { title: "Material Trading", icon: Battery, desc: "Panels & Inverters" }
               ].map((service, i) => (
                 <motion.div
                   key={i}

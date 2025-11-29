@@ -30,7 +30,7 @@ export default function Home() {
           <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-12">
             <div className="flex justify-between items-start">
               <span className="font-mono text-xs text-white/80 tracking-widest border border-white/20 px-3 py-1 rounded-full backdrop-blur-md">
-                EST. 2010
+                EST. 2024
               </span>
               <span className="font-mono text-xs text-white/80 tracking-widest border border-white/20 px-3 py-1 rounded-full backdrop-blur-md hidden md:block">
                 SOLAR EPC SPECIALISTS
@@ -292,7 +292,7 @@ export default function Home() {
             </div>
 
             {/* Scrolling Projects */}
-            <div className="md:w-2/3">
+            <div className="md:w-2/3 pb-32 md:pb-0 space-y-8 md:space-y-0">
               {[
                 { title: "Industrial Solar Plant", loc: "Aurangabad", cap: "500 kW", img: "/Industrial-Solar-Plant.png" },
                 { title: "Commercial Complex", loc: "Pune", cap: "100 kW", img: "/Commercial-Complex.png" },

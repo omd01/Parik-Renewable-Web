@@ -26,32 +26,32 @@ export default function MaterialTrading() {
             img: "/Solar-Batteries.png"
         },
         {
-            title: "Polycab Cables",
+            title: "All Types of Polycab Cables",
             desc: "Full range of industrial-grade DC and AC cabling solutions.",
             img: "/Polycab-Cables.png"
         },
         {
-            title: "L&T Electrical Products",
+            title: "All Types of L&T Electrical Products",
             desc: "Switchgear, circuit breakers, and automation units from L&T.",
             img: "/L&T-Electrical-Products.png"
         },
         {
-            title: "L&T Meters",
+            title: "All Types of L&T Meters",
             desc: "Precision metering hardware for accurate industrial monitoring.",
             img: "/L&T-Meters.png"
         },
         {
-            title: "Transformers & Conductors",
+            title: "All Types of Transformers & Conductors",
             desc: "High-voltage distribution transformers and transmission conductors.",
             img: "/Transformers-&-Conductors.png"
         },
         {
-            title: "Secure Meters",
+            title: "All Types of Secure Meters",
             desc: "Smart metering solutions for complex grid integration.",
             img: "/Secure-Meters.png"
         },
         {
-            title: "Industrial Materials",
+            title: "All Types of Industrial Materials",
             desc: "Structural steel, mounting kits, and heavy-duty civil hardware.",
             img: "/Industrial-Materials.png"
         }

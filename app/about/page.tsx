@@ -262,7 +262,7 @@ export default function About() {
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-zinc-300 rounded-full overflow-hidden relative">
                     <Image
-                      src="https://placehold.co/200x200/png?text=ASP"
+                      src="Aditya-Suresh-Parikh.png"
                       alt="Aditya Suresh Parikh"
                       fill
                       className="object-cover"

@@ -67,5 +67,6 @@
 - [x] **Layout Refinements**:
     - Fixed mobile typography overflow.
     - Component breakdown and Benefits grid.
+    - **Fixed Mobile Footer Collision**: Added `pb-32` padding to the Projects section on mobile to prevent footer overlap.
     - Implemented reliable image placeholders with fallback.
     - Optimized mobile padding and structure.
