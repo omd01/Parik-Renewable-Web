@@ -30,7 +30,7 @@ export default function Projects() {
       category: "Residential",
       capacity: "10 kW",
       location: "Nashik",
-      image: "/placeholder.svg?key=proj3",
+      image: "/Residential-Villa.png",
       desc: "Aesthetic integration of solar panels for a luxury villa."
     },
     {
@@ -38,7 +38,7 @@ export default function Projects() {
       category: "Institutional",
       capacity: "50 kW",
       location: "Mumbai",
-      image: "/placeholder.svg?key=proj4",
+      image: "/School-Campus.png",
       desc: "Educational institution powered by clean energy."
     },
     {

@@ -26,7 +26,7 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-[12vw] md:text-[6vw] leading-[0.9] font-bold tracking-tighter text-[#193354] mb-8">
+            <h1 className="text-[12vw] md:text-[6vw] leading-[0.85] font-bold tracking-tighter text-[#193354] mb-8">
               POWERING<br />
               INDIA WITH<br />
               <span className="text-zinc-400">CLEAN ROOFTOP SOLAR.</span>
@@ -38,7 +38,7 @@ export default function About() {
         </div>
         <div className="flex-1 relative min-h-[50vh] md:min-h-screen bg-zinc-900">
           <Image
-            src="https://placehold.co/1920x1080/png?text=Industrial+Solar+Roof"
+            src="/Industrial-Solar-Roof.png"
             alt="Industrial Solar Rooftop"
             fill
             className="object-cover opacity-80"
@@ -176,20 +176,22 @@ export default function About() {
                 initial={{ opacity: 0.2 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ margin: "-20% 0px -20% 0px" }}
-                className={`relative flex flex-col md:flex-row items-start md:items-center gap-8 mb-16 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''
+                className={`relative flex flex-col md:flex-row items-start md:items-center gap-8 mb-24 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''
                   }`}
               >
                 {/* Content */}
-                <div className="flex-1 pl-20 md:pl-0 md:text-right w-full">
+                <div className="flex-1 pl-20 md:pl-0 md:text-right w-full relative z-10">
                   <div className={`md:px-8 ${i % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
-                    <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
-                    <p className="text-zinc-400">{item.desc}</p>
+                    <h3 className="text-3xl font-bold text-white mb-2">{item.title}</h3>
+                    <p className="text-zinc-400 text-lg">{item.desc}</p>
                   </div>
                 </div>
 
-                {/* Number Bubble */}
-                <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center border-4 border-zinc-900 z-10 text-[#F0B448] font-mono font-bold text-xl">
-                  {item.step}
+                {/* Number Bubble (Magazine Style) */}
+                <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 z-0">
+                  <span className="text-8xl font-bold text-zinc-800/50 md:text-zinc-800/30 select-none">
+                    {item.step}
+                  </span>
                 </div>
 
                 {/* Spacer for opposite side */}
@@ -239,44 +241,49 @@ export default function About() {
             </div>
 
             {/* Card 3: Nature of Business */}
-            <div className="bg-[#193354] text-white p-8 md:p-12 rounded-3xl">
+            <div className="bg-[#193354] text-white p-8 md:p-12 rounded-3xl flex flex-col h-full">
               <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
                 <Briefcase className="w-6 h-6 text-[#F0B448]" />
               </div>
-              <h3 className="text-2xl font-bold mb-6">Nature of Business</h3>
-              <div className="flex flex-wrap gap-3">
+              <h3 className="text-2xl font-bold mb-8">Nature of Business</h3>
+
+              <div className="grid grid-cols-1 gap-4 mb-8 flex-grow">
                 {["Solar Rooftop EPC", "Material Trading", "Electrical Contractor"].map((tag, i) => (
-                  <span key={i} className="px-4 py-2 bg-white/10 rounded-full text-sm border border-white/20">
-                    {tag}
-                  </span>
+                  <div key={i} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-[#F0B448] flex-shrink-0" />
+                    <span className="text-lg font-light">{tag}</span>
+                  </div>
                 ))}
-                <span className="px-4 py-2 bg-[#F0B448] text-[#193354] rounded-full text-sm font-bold">
+              </div>
+
+              <div className="mt-auto">
+                <span className="inline-block px-6 py-3 border border-[#F0B448] text-[#F0B448] rounded-full text-sm font-bold tracking-wider uppercase bg-transparent">
                   Government Contractor
                 </span>
               </div>
             </div>
 
             {/* Card 4: Legal & Founder */}
-            <div className="bg-zinc-100 p-8 md:p-12 rounded-3xl border border-zinc-200 flex flex-col justify-between">
+            <div className="bg-zinc-100 p-8 md:p-12 rounded-3xl border border-zinc-200 flex flex-col justify-between h-full">
               <div>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 bg-zinc-300 rounded-full overflow-hidden relative">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-20 h-20 bg-zinc-300 rounded-full overflow-hidden relative border-4 border-white shadow-md">
                     <Image
-                      src="https://placehold.co/200x200/png?text=ASP"
+                      src="/Aditya-Suresh-Parikh.png"
                       alt="Aditya Suresh Parikh"
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-[#193354]">Aditya Suresh Parikh</h3>
-                    <p className="text-sm text-zinc-500 uppercase tracking-widest">Founder & CEO</p>
+                    <h3 className="text-2xl font-bold text-[#193354]">Aditya Suresh Parikh</h3>
+                    <p className="text-sm text-zinc-500 uppercase tracking-widest font-bold mt-1">Founder & CEO</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 mb-6 bg-white p-3 rounded-xl border border-zinc-200 w-fit">
+                <div className="flex items-center gap-3 mb-8 bg-[#F0B448]/10 p-4 rounded-xl border border-[#F0B448]/50 w-fit">
                   <BadgeCheck className="w-6 h-6 text-[#F0B448]" />
-                  <span className="font-bold text-sm">GEM Approved Vendor</span>
+                  <span className="font-bold text-sm text-[#193354]">GEM Approved Vendor</span>
                 </div>
               </div>
 

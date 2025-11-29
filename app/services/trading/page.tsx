@@ -12,39 +12,48 @@ export default function MaterialTrading() {
     const products = [
         {
             title: "Solar PV Modules",
-            desc: "High-efficiency monocrystalline and polycrystalline panels for utility-scale output."
+            desc: "High-efficiency monocrystalline and polycrystalline panels for utility-scale output.",
+            img: "/Solar-PV-Modules.png"
         },
         {
             title: "Solar Inverters",
-            desc: "Grid-tied and hybrid inverters ensuring maximum conversion efficiency."
+            desc: "Grid-tied and hybrid inverters ensuring maximum conversion efficiency.",
+            img: "/Solar-Inverters.png"
         },
         {
             title: "Solar Batteries",
-            desc: "Advanced energy storage systems for off-grid and hybrid reliability."
+            desc: "Advanced energy storage systems for off-grid and hybrid reliability.",
+            img: "/Solar-Batteries.png"
         },
         {
             title: "Polycab Cables",
-            desc: "Full range of industrial-grade DC and AC cabling solutions."
+            desc: "Full range of industrial-grade DC and AC cabling solutions.",
+            img: "/Polycab-Cables.png"
         },
         {
             title: "L&T Electrical Products",
-            desc: "Switchgear, circuit breakers, and automation units from L&T."
+            desc: "Switchgear, circuit breakers, and automation units from L&T.",
+            img: "/L&T-Electrical-Products.png"
         },
         {
             title: "L&T Meters",
-            desc: "Precision metering hardware for accurate industrial monitoring."
+            desc: "Precision metering hardware for accurate industrial monitoring.",
+            img: "/L&T-Meters.png"
         },
         {
             title: "Transformers & Conductors",
-            desc: "High-voltage distribution transformers and transmission conductors."
+            desc: "High-voltage distribution transformers and transmission conductors.",
+            img: "/Transformers-&-Conductors.png"
         },
         {
             title: "Secure Meters",
-            desc: "Smart metering solutions for complex grid integration."
+            desc: "Smart metering solutions for complex grid integration.",
+            img: "/Secure-Meters.png"
         },
         {
             title: "Industrial Materials",
-            desc: "Structural steel, mounting kits, and heavy-duty civil hardware."
+            desc: "Structural steel, mounting kits, and heavy-duty civil hardware.",
+            img: "/Industrial-Materials.png"
         }
     ]
 
@@ -161,7 +170,7 @@ function ProductCard({ product, index }: { product: any, index: number }) {
     const [imgError, setImgError] = useState(false)
 
     // Fix 2: Reliable placeholder service
-    const imgSrc = `https://placehold.co/600x400/f4f4f5/52525b?text=${product.title.replace(/ /g, '+')}`
+    // const imgSrc = `https://placehold.co/600x400/f4f4f5/52525b?text=${product.title.replace(/ /g, '+')}`
 
     return (
         <motion.div
@@ -175,7 +184,7 @@ function ProductCard({ product, index }: { product: any, index: number }) {
                 {/* Fix 2: Fallback handling and unoptimized for external URL */}
                 {!imgError ? (
                     <Image
-                        src={imgSrc}
+                        src={product.img}
                         alt={product.title}
                         fill
                         unoptimized

@@ -48,6 +48,18 @@
     - **Why Solar**: Infinite scroll marquee with key benefits.
     - **Execution Process**: 8-step vertical timeline with scroll interactions.
     - **Capability & Compliance**: Consolidated grid with Technology, Safety, and Legal info.
+- [x] **About Page Layout Refinements**:
+    - **Nature of Business**: Converted pill cloud to a structured list with icons; styled "Government Contractor" badge.
+    - **Founder Card**: Aligned height with Business card; styled GEM badge as a stamped seal.
+    - **Execution Process**: Increased spacing between steps; updated step number typography for magazine look.
+    - **Mobile Typography**: Adjusted Hero heading clamp logic and section spacing.
+- [x] **Material Trading Images**:
+    - Downloaded labeled placeholders for all 9 products (Modules, Inverters, Cables, etc.) to `public/` to match new filenames.
+    - *Note: Used placeholders due to temporary generation quota limit.*
+- [x] **Project & About Page Images**:
+    - Updated `app/projects/page.tsx` and `app/about/page.tsx` to use local image paths.
+    - Downloaded labeled placeholders for missing images (Residential Villa, School Campus, Industrial Roof, Founder).
+    - Fixed a syntax error in `app/projects/page.tsx`.
 - [x] **Layout Refinements**:
     - Fixed mobile typography overflow.
     - Component breakdown and Benefits grid.
