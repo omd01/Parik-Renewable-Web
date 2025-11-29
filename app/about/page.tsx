@@ -274,10 +274,7 @@ export default function About() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 mb-6 bg-white p-3 rounded-xl border border-zinc-200 w-fit">
-                  <BadgeCheck className="w-6 h-6 text-[#F0B448]" />
-                  <span className="font-bold text-sm">GEM Approved Vendor</span>
-                </div>
+
               </div>
 
               <div className="space-y-4 text-sm text-zinc-600 border-t border-zinc-200 pt-6">
