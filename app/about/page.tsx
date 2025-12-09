@@ -279,8 +279,20 @@ export default function About() {
 
               <div className="space-y-4 text-sm text-zinc-600 border-t border-zinc-200 pt-6">
                 <div className="flex gap-3">
-                  <MapPin className="w-5 h-5 text-zinc-400 flex-shrink-0" />
-                  <p><strong className="text-zinc-900">HQ:</strong> Office No. D 401, Freedom Tower, Aurangabad - 431001</p>
+                  <BadgeCheck className="w-5 h-5 text-zinc-400 shrink-0" />
+                  <p><strong className="text-zinc-900">Company:</strong> Parikh Renewable Pvt. Ltd.</p>
+                </div>
+                <div className="flex gap-3">
+                  <BadgeCheck className="w-5 h-5 text-zinc-400 shrink-0" />
+                  <p><strong className="text-zinc-900">GST:</strong> 27AAQCP3712M1ZX</p>
+                </div>
+                <div className="flex gap-3">
+                  <BadgeCheck className="w-5 h-5 text-zinc-400 shrink-0" />
+                  <p><strong className="text-zinc-900">CIN:</strong> U43222MH2025PTC461018</p>
+                </div>
+                <div className="flex gap-3">
+                  <MapPin className="w-5 h-5 text-zinc-400 shrink-0" />
+                  <p><strong className="text-zinc-900">Address 1:</strong> Office No. D 401, Freedom Tower, Aurangabad - 431001</p>
                 </div>
                 <div className="flex gap-3">
                   <MapPin className="w-5 h-5 text-zinc-400 flex-shrink-0" />
