@@ -292,7 +292,7 @@ export default function About() {
                 </div>
                 <div className="flex gap-3">
                   <MapPin className="w-5 h-5 text-zinc-400 shrink-0" />
-                  <p><strong className="text-zinc-900">Address 1:</strong> Office No. D 401, Freedom Tower, Aurangabad - 431001</p>
+                  <p><strong className="text-zinc-900">Address 1:</strong> Office No. D 401, Freedom Tower, Chhatrapati Sambhaji Nagar - 431001</p>
                 </div>
                 <div className="flex gap-3">
                   <MapPin className="w-5 h-5 text-zinc-400 flex-shrink-0" />

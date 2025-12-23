@@ -297,7 +297,7 @@ export default function Home() {
                 { title: "Industrial Solar Plant", loc: "Aurangabad", cap: "500 kW", img: "/Industrial-Solar-Plant.png" },
                 { title: "Commercial Complex", loc: "Pune", cap: "100 kW", img: "/Commercial-Complex.png" },
                 { title: "Factory Warehouse", loc: "Nagpur", cap: "1 MW", img: "/Factory-Warehouse.png" },
-                { title: "Hospital Rooftop", loc: "Sambhaji Nagar", cap: "200 kW", img: "/Hospital-Rooftop.png" }
+                { title: "Hospital Rooftop", loc: "Chhatrapati Sambhaji Nagar", cap: "200 kW", img: "/Hospital-Rooftop.png" }
               ].map((project, i) => (
                 <div key={i} className="h-auto md:h-screen flex items-center justify-center p-4 md:p-20 border-b border-zinc-100 bg-white">
                   <motion.div
@@ -377,7 +377,7 @@ export default function Home() {
                 <p className="text-zinc-300 font-light text-sm">
                   Office No. 401, D Tower,<br />
                   Freedom Tower, Akashwani Chowk,<br />
-                  Sambhaji Nagar, 431005
+                  Chhatrapati Sambhaji Nagar, 431005
                 </p>
                 <p className="text-zinc-300 font-mono text-sm">+91 7083366625</p>
                 <p className="text-zinc-300 font-mono text-[10px] md:text-sm break-all">Support@parikhrenewable.com</p>

@@ -90,7 +90,7 @@ const jsonLd = {
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Office No. 401, D Tower, Freedom Tower, Akashwani Chowk',
-    addressLocality: 'Sambhaji Nagar',
+    addressLocality: 'Chhatrapati Sambhaji Nagar',
     postalCode: '431005',
     addressCountry: 'IN'
   },

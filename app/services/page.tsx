@@ -186,7 +186,7 @@ export default function Services() {
                 <p className="text-zinc-300 font-light text-sm">
                   Office No. 401, D Tower,<br />
                   Freedom Tower, Akashwani Chowk,<br />
-                  Sambhaji Nagar, 431005
+                  Chhatrapati Sambhaji Nagar, 431005
                 </p>
                 <p className="text-zinc-300 font-mono text-sm">+91 7083366625</p>
                 <p className="text-zinc-300 font-mono text-[10px] md:text-sm break-all">Support@parikhrenewable.com</p>

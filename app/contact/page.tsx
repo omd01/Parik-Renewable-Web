@@ -59,7 +59,7 @@ export default function Contact() {
                 <p className="text-xl md:text-3xl font-light text-zinc-600 leading-relaxed">
                   Office No. 401, D Tower,<br />
                   Freedom Tower, Akashwani Chowk,<br />
-                  Sambhaji Nagar, 431005
+                  Chhatrapati Sambhaji Nagar, 431005
                 </p>
               </div>
 
