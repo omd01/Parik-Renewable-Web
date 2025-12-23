@@ -79,3 +79,8 @@
     - Added structured data (JSON-LD) for LocalBusiness schema.
     - Created page-specific metadata for key routes.
     - Auto-generated `sitemap.xml` and `robots.txt`.
+- [x] **Quotation Generator (SaaS Tool)**:
+    - Created protected route `/admin/quotator` (Access Code: PARIKH2025).
+    - Implemented "Input Deck" for generating custom solar quotations.
+    - Built professional 4-page PDF template with "Paper View".
+    - Added "Session Log" Excel export functionality.
