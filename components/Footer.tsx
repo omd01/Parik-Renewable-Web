@@ -59,7 +59,8 @@ export default function Footer() {
                         PARIKH RENEWABLE
                     </h1>
                     <div className="flex gap-4 md:gap-8 pb-4 md:pb-8 mt-4">
-                        <span className="font-mono text-[10px] md:text-xs text-zinc-600">© 2025 PRIVACY POLICY</span>
+                        <Link href="/privacy" className="font-mono text-[10px] md:text-xs text-zinc-600 hover:text-zinc-400 transition-colors uppercase">Privacy Policy</Link>
+                        <Link href="/terms" className="font-mono text-[10px] md:text-xs text-zinc-600 hover:text-zinc-400 transition-colors uppercase">Terms & Conditions</Link>
                         <span className="font-mono text-[10px] md:text-xs text-zinc-600">DESIGNED & DEVELOPED BY <a href="https://talentronaut.in/" target="_blank" rel="noopener noreferrer" className="text-zinc-600 hover:text-zinc-800 transition-colors">TALENTRONAUT TECHNOLOGIES PVT LTD</a></span>
                     </div>
                 </div>
