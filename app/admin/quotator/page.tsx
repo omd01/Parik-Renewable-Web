@@ -20,13 +20,14 @@ export default function QuotatorPage() {
         propertyType: 'Residential',
         capacity: '5',
         systemType: 'On-Grid',
-        panelBrand: 'Waaree 540Wp Mono Perc',
-        inverterBrand: 'Growatt / Solis',
+        panelBrand: 'Waaree',
+        inverterBrand: 'Waaree',
         batteryBrand: '',
         pricePerWatt: '45',
         totalCost: '0',
         gst: 'Included',
-        grandTotal: '0'
+        grandTotal: '0',
+        proposalBy: 'Aditya Suresh Parikh'
     });
 
     // Session Log for Excel Export
@@ -34,9 +35,27 @@ export default function QuotatorPage() {
 
     const componentRef = useRef<HTMLDivElement>(null);
 
+    // FIX: Added pageStyle to remove default browser margins (White Gaps)
     const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
+        contentRef: componentRef,
         documentTitle: `Quotation_${formData.clientName}_${formData.date}`,
+        pageStyle: `
+            @page {
+                size: A4;
+                margin: 0mm;
+            }
+            @media print {
+                body {
+                    margin: 0;
+                    padding: 0;
+                    -webkit-print-color-adjust: exact;
+                }
+                html, body {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+        `,
         onAfterPrint: () => {
             // Add to session log after successful print/save
             addToSessionLog();
@@ -63,8 +82,11 @@ export default function QuotatorPage() {
                 const cap = parseFloat(name === 'capacity' ? value : prev.capacity) || 0;
                 const price = parseFloat(name === 'pricePerWatt' ? value : prev.pricePerWatt) || 0;
                 const total = cap * 1000 * price; // kW * 1000 * price/watt
-                newData.totalCost = total.toLocaleString('en-IN');
-                newData.grandTotal = total.toLocaleString('en-IN');
+                const gstAmount = total * 0.138; // 13.8% GST
+                const grand = total + gstAmount;
+
+                newData.totalCost = total.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+                newData.grandTotal = grand.toLocaleString('en-IN', { maximumFractionDigits: 2 });
             }
 
             return newData;
@@ -73,7 +95,7 @@ export default function QuotatorPage() {
 
     const addToSessionLog = () => {
         setSessionLog(prev => [...prev, formData]);
-        alert('Quotation logged to session history!');
+        // alert('Quotation logged to session history!'); // Optional: removed alert for smoother UX
     };
 
     const handleExportExcel = () => {
@@ -127,7 +149,8 @@ export default function QuotatorPage() {
             {/* LEFT: CONTROL PANEL */}
             <div className="w-full md:w-1/3 lg:w-1/4 bg-white border-r border-zinc-200 h-screen overflow-y-auto p-6 shadow-xl z-10">
                 <div className="flex items-center gap-3 mb-8">
-                    <div className="w-8 h-8 bg-[#193354] rounded-lg flex items-center justify-center text-white font-bold">P</div>
+                    {/* <div className="w-8 h-8 bg-[#193354] rounded-lg flex items-center justify-center text-white font-bold">P</div> */}
+                    <img src="/icon.png" alt="" className='w-8 h-8' />
                     <h1 className="font-bold text-lg text-[#193354]">Quotation Engine</h1>
                 </div>
 
@@ -139,6 +162,15 @@ export default function QuotatorPage() {
                         <input name="clientAddress" placeholder="Address" value={formData.clientAddress} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm" />
                         <input name="clientPhone" placeholder="Phone" value={formData.clientPhone} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm" />
                         <input name="date" type="date" value={formData.date} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm" />
+                    </div>
+
+                    {/* Section 1.5: Proposal Signatory */}
+                    <div className="space-y-4">
+                        <h3 className="text-xs font-mono uppercase tracking-widest text-zinc-500 border-b border-zinc-100 pb-2">Proposal By</h3>
+                        <select name="proposalBy" value={formData.proposalBy} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm">
+                            <option value="Aditya Suresh Parikh">Aditya Suresh Parikh</option>
+                            <option value="Chetan Parikh">Chetan Parikh</option>
+                        </select>
                     </div>
 
                     {/* Section 2: Site Metrics */}
@@ -166,13 +198,35 @@ export default function QuotatorPage() {
                     {/* Section 3: Hardware */}
                     <div className="space-y-4">
                         <h3 className="text-xs font-mono uppercase tracking-widest text-zinc-500 border-b border-zinc-100 pb-2">Hardware Specs</h3>
-                        <select name="panelBrand" value={formData.panelBrand} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm">
-                            <option>Waaree 540Wp Mono Perc</option>
-                            <option>Tata Power Solar</option>
-                            <option>Adani Solar</option>
-                            <option>Canadian Solar</option>
-                        </select>
-                        <input name="inverterBrand" placeholder="Inverter Brand" value={formData.inverterBrand} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm" />
+                        <div>
+                            <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider">Panel Brand</label>
+                            <select name="panelBrand" value={formData.panelBrand} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm">
+                                <option value="Waaree">Waaree</option>
+                                <option value="Tata">Tata</option>
+                                <option value="Luminous">Luminous</option>
+                                <option value="Eastman">Eastman</option>
+                                <option value="Adani">Adani</option>
+                                <option value="Vikram">Vikram</option>
+                                <option value="Renew Power">Renew Power</option>
+                                <option value="Renewsys">Renewsys</option>
+                                <option value="UTL">UTL</option>
+                                <option value="Loom Solar">Loom Solar</option>
+                                <option value="Goldie">Goldie</option>
+                                <option value="Azure Power">Azure Power</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider">Inverter Brand</label>
+                            <select name="inverterBrand" value={formData.inverterBrand} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm">
+                                <option value="Waaree">Waaree</option>
+                                <option value="Luminous">Luminous</option>
+                                <option value="UTL">UTL</option>
+                                <option value="Selec">Selec</option>
+                                <option value="Sungrow">Sungrow</option>
+                                <option value="Eastman">Eastman</option>
+                                <option value="Tata">Tata</option>
+                            </select>
+                        </div>
                         {formData.systemType !== 'On-Grid' && (
                             <input name="batteryBrand" placeholder="Battery Specs" value={formData.batteryBrand} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm" />
                         )}
@@ -204,11 +258,10 @@ export default function QuotatorPage() {
             </div>
 
             {/* RIGHT: PREVIEW AREA */}
-            <div className="flex-1 bg-zinc-100 p-8 md:p-16 overflow-y-auto h-screen flex justify-center">
-                <div className="scale-[0.6] md:scale-[0.8] origin-top shadow-2xl">
-                    <div className="bg-white w-[210mm] min-h-[297mm] shadow-lg pointer-events-none">
-                        <QuotationTemplate data={formData} className="block" />
-                    </div>
+            <div className="flex-1 bg-zinc-200 p-8 overflow-y-auto h-screen flex justify-center items-start">
+                <div className="scale-[0.5] md:scale-[0.7] lg:scale-[0.8] mb-[-891mm] md:mb-[-535mm] lg:mb-[-357mm] origin-top shadow-2xl transition-all">
+                    {/* Render the template for preview */}
+                    <QuotationTemplate data={formData} className="block shadow-lg" />
                 </div>
             </div>
 
