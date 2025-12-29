@@ -709,18 +709,14 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
                             <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Phone className="w-3 h-3" /> +91 70833 66625</p>
                         </div>
                         <div className="text-right space-y-2">
-                          <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
-                            Headquarters
-                          </p>
-
                           <p className="text-xs text-zinc-300 leading-relaxed">
-                            <span className="font-semibold text-white">Address 1:</span><br />
+                            <span className="font-semibold text-white">Address 1:</span>
                             Office No. D 401, Freedom Tower,<br />
                             Chhatrapati Sambhaji Nagar – 431001
                           </p>
 
                           <p className="text-xs text-zinc-300 leading-relaxed">
-                            <span className="font-semibold text-white">Address 2:</span><br />
+                            <span className="font-semibold text-white">Address 2:</span>
                             Teacher Colony Behind S.T Stand,<br />
                             Beed – 431122
                           </p>
