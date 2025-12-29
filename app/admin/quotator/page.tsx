@@ -24,6 +24,7 @@ export default function QuotatorPage() {
         inverterBrand: 'Waaree',
         batteryBrand: '',
         pricePerWatt: '45',
+        bookingamount: '',
         totalCost: '0',
         gst: 'Included',
         grandTotal: '0',
@@ -230,6 +231,16 @@ export default function QuotatorPage() {
                         {formData.systemType !== 'On-Grid' && (
                             <input name="batteryBrand" placeholder="Battery Specs" value={formData.batteryBrand} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm" />
                         )}
+                    </div>
+
+                    {/* Section 4: Booking Amount */}
+                    <div className="space-y-4">
+                        <h3 className="text-xs font-mono uppercase tracking-widest text-zinc-500 border-b border-zinc-100 pb-2">Booking Amount</h3>
+                        <div className="relative">
+                            <input name="bookingamount" type="number" placeholder="Booking Amount" value={formData.bookingamount} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm pl-8" />
+                            <span className="absolute left-3 top-3 text-zinc-400 text-sm">₹</span>
+                        </div>
+
                     </div>
 
                     {/* Section 4: Commercials */}
