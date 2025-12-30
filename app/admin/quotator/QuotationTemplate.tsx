@@ -7,17 +7,21 @@ export interface QuotationData {
   clientAddress: string;
   clientPhone: string;
   date: string;
+  panneloptions: string;
+  dcrOption: string;
   propertyType: string;
   capacity: string;
-  bookingamount:string;
+  bookingamount: string;
   systemType: string;
   panelBrand: string;
   inverterBrand: string;
+  inverterNumber: string;
   batteryBrand?: string;
   pricePerWatt: string;
   totalCost: string;
   gst: string;
   grandTotal: string;
+  systemCost: string;
   proposalBy: string;
 }
 
@@ -35,9 +39,10 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
   const yearlyGen = Math.round(capacity * 1440);
   const tariff = 12;
   const yearlySavings = yearlyGen * tariff;
-  const systemCost = parseFloat(data.totalCost.replace(/,/g, '')) || 0;
+  // Revised Financials: Total is the Grand Total (entered by user)
   const grandCost = parseFloat(data.grandTotal.replace(/,/g, '')) || 0;
-  const gstAmount = grandCost - systemCost;
+  const gstAmount = grandCost * 0.089;
+  const systemCost = grandCost - gstAmount;
   const paybackYears = yearlySavings > 0 ? (grandCost / yearlySavings).toFixed(1) : "0";
   const twentyFiveYearSavings = yearlySavings * 25;
 
@@ -253,7 +258,7 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
                     Yearly Energy Production (Approximate)
                   </td>
                   <td className="p-4 text-center font-semibold">
-                    4320 Units (kWh)
+                    {capacity * 4} Units (kWh)
                   </td>
                 </tr>
 
@@ -262,7 +267,13 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
                     Solar Panels ({data.panelBrand})
                   </td>
                   <td className="p-4 text-center leading-relaxed font-semibold">
-                    Mono Half-Cut Cell Technology Solar Panel
+                    {data.panneloptions} Technology Solar Panel
+                    {data.dcrOption !== 'NONE' && (
+                      <>
+                        <br />
+                        <span className="text-xs text-black font-semibold">({data.dcrOption})</span>
+                      </>
+                    )}
                     <br />
                     ({panelQty} Panels of 540 Wp each)
                   </td>
@@ -273,7 +284,7 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
                     Inverter ({data.inverterBrand})
                   </td>
                   <td className="p-4 text-center font-semibold">
-                    {data.capacity} KW On-Grid Solar Inverter
+                    {data.inverterNumber || data.capacity} KW On-Grid Solar Inverter
                   </td>
                 </tr>
               </tbody>
@@ -341,14 +352,14 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
           <div className="flex gap-6 items-stretch">
             <div className="flex-1 border border-zinc-200 rounded-xl p-6 bg-white">
               <div className="flex justify-between mb-2 text-sm text-zinc-600"><span>System Basic Cost</span><span className="font-mono">₹ {systemCost.toLocaleString()}</span></div>
-              <div className="flex justify-between mb-4 text-sm text-zinc-600 border-b border-zinc-100 pb-2"><span>GST (13.8%)</span><span className="font-mono">₹ {gstAmount.toLocaleString()}</span></div>
+              <div className="flex justify-between mb-4 text-sm text-zinc-600 border-b border-zinc-100 pb-2"><span>GST (8.9%)</span><span className="font-mono">₹ {gstAmount.toLocaleString()}</span></div>
               <div className="flex justify-between items-center"><span className="font-bold text-lg">Total Investment</span><span className="font-bold text-2xl font-mono text-zinc-900">₹ {data.grandTotal}</span></div>
             </div>
             <div className="w-1/3 bg-zinc-900 text-white rounded-xl p-6 flex flex-col justify-center text-center print-color-adjust-exact">
-                              <span className="text-[10px] uppercase text-zinc-400 tracking-widest mb-1">Booking Amount</span>
-                              <span className="text-2xl font-bold text-yellow-500 font-mono"> {data.bookingamount}</span>
-                              <span className="text-[10px] text-zinc-500 mt-2">Refundable as per terms</span>
-             </div>
+              <span className="text-[10px] uppercase text-zinc-400 tracking-widest mb-1">Booking Amount</span>
+              <span className="text-2xl font-bold text-yellow-500 font-mono"> {data.bookingamount}</span>
+              <span className="text-[10px] text-zinc-500 mt-2">Refundable as per terms</span>
+            </div>
           </div>
         </div>
       </div>
@@ -646,7 +657,7 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
                 Mobile Number
               </p>
               <p className="font-medium text-zinc-800">
-               +91 70833 66625
+                +91 70833 66625
               </p>
             </div>
 
@@ -679,16 +690,16 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
               </p>
             </div>
 
-             <div>
+            <div>
               <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
                 GST
               </p>
               <p className="font-medium text-zinc-800">
-                 27AAQCP3772M2ZX
+                27AAQCP3772M2ZX
               </p>
             </div>
 
-             <div>
+            <div>
               <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
                 CIN
               </p>
@@ -701,31 +712,31 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
         </div>
       </div>
 
-       <div className="bg-zinc-950 text-white p-8  print-color-adjust-exact">
-                    <div className="flex justify-between ">
-                        <div className="space-y-2">
-                            <h2 className="text-2xl font-bold mb-1">PARIKH RENEWABLE</h2>
-                            <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Mail className="w-3 h-3" /> support@parikhrenewable.com</p>
-                            <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Phone className="w-3 h-3" /> +91 70833 66625</p>
-                        </div>
-                        <div className="text-right space-y-2">
-                          <p className="text-xs text-zinc-300 leading-relaxed">
-                            <span className="font-semibold text-white">Address 1:</span>
-                            Office No. D 401, Freedom Tower,<br />
-                            Chhatrapati Sambhaji Nagar – 431001
-                          </p>
+      <div className="bg-zinc-950 text-white p-8  print-color-adjust-exact">
+        <div className="flex justify-between ">
+          <div className="space-y-2">
+            <h2 className="text-2xl font-bold mb-1">PARIKH RENEWABLE</h2>
+            <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Mail className="w-3 h-3" /> support@parikhrenewable.com</p>
+            <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Phone className="w-3 h-3" /> +91 70833 66625</p>
+          </div>
+          <div className="text-right space-y-2">
+            <p className="text-xs text-zinc-300 leading-relaxed">
+              <span className="font-semibold text-white">Address 1:</span>
+              Office No. D 401, Freedom Tower,<br />
+              Chhatrapati Sambhaji Nagar – 431001
+            </p>
 
-                          <p className="text-xs text-zinc-300 leading-relaxed">
-                            <span className="font-semibold text-white">Address 2:</span>
-                            Teacher Colony Behind S.T Stand,<br />
-                            Beed – 431122
-                          </p>
-                        </div>
+            <p className="text-xs text-zinc-300 leading-relaxed">
+              <span className="font-semibold text-white">Address 2:</span>
+              Teacher Colony Behind S.T Stand,<br />
+              Beed – 431122
+            </p>
+          </div>
 
-                    </div>
-                </div>
+        </div>
+      </div>
 
-            <style>{`
+      <style>{`
                 @media print {
                     @page { size: A4; margin: 0; }
                     body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
