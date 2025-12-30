@@ -22,13 +22,17 @@ export default function QuotatorPage() {
         systemType: 'On-Grid',
         panelBrand: 'Waaree',
         inverterBrand: 'Waaree',
+        inverterNumber: '',
         batteryBrand: '',
         pricePerWatt: '45',
         bookingamount: '',
         totalCost: '0',
         gst: 'Included',
         grandTotal: '0',
-        proposalBy: 'Aditya Suresh Parikh'
+        systemCost: '0',
+        proposalBy: 'Aditya Suresh Parikh',
+        panneloptions: 'Mono Half-Cut Cell',
+        dcrOption: 'NONE'
     });
 
     // Session Log for Excel Export
@@ -82,12 +86,13 @@ export default function QuotatorPage() {
             if (name === 'capacity' || name === 'pricePerWatt') {
                 const cap = parseFloat(name === 'capacity' ? value : prev.capacity) || 0;
                 const price = parseFloat(name === 'pricePerWatt' ? value : prev.pricePerWatt) || 0;
-                const total = cap * 1000 * price; // kW * 1000 * price/watt
-                const gstAmount = total * 0.138; // 13.8% GST
-                const grand = total + gstAmount;
+                const total = price;
+                const gstamount = total * 0.089;
+                const systemCost = total - gstamount;
 
+                newData.systemCost = systemCost.toLocaleString('en-IN', { maximumFractionDigits: 2 });
                 newData.totalCost = total.toLocaleString('en-IN', { maximumFractionDigits: 2 });
-                newData.grandTotal = grand.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+                newData.grandTotal = total.toLocaleString('en-IN', { maximumFractionDigits: 2 });
             }
 
             return newData;
@@ -217,6 +222,35 @@ export default function QuotatorPage() {
                             </select>
                         </div>
                         <div>
+                            <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider">Solar Panel</label>
+                            <select name="panneloptions" value={formData.panneloptions} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm">
+                                <option value="Mono Half-Cut Cell">Mono Half-Cut Cell</option>
+                                <option value="Bifacial Solar Modules">Bifacial Solar Modules </option>
+                                <option value="Bifacial ToP Corn Solar Modules">Bifacial ToP Corn Solar Modules</option>
+
+                            </select>
+                        </div>
+
+                        <div>
+                            <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider">DCR Requirements</label>
+                            <div className="flex gap-4 p-3 bg-zinc-50 border border-zinc-200 rounded-lg">
+                                {['NONE', 'DCR', 'NON DCR'].map((option) => (
+                                    <label key={option} className="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="dcrOption"
+                                            value={option}
+                                            checked={formData.dcrOption === option}
+                                            onChange={handleInputChange}
+                                            className="accent-[#F0B448] w-4 h-4"
+                                        />
+                                        <span className="text-sm font-medium text-zinc-700">{option}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div>
                             <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider">Inverter Brand</label>
                             <select name="inverterBrand" value={formData.inverterBrand} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm">
                                 <option value="Waaree">Waaree</option>
@@ -227,6 +261,10 @@ export default function QuotatorPage() {
                                 <option value="Eastman">Eastman</option>
                                 <option value="Tata">Tata</option>
                             </select>
+                        </div>
+                        <div>
+                            <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider">Inverter Number / Model</label>
+                            <input name="inverterNumber" placeholder="Inverter Number / Model" value={formData.inverterNumber} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm mt-2" />
                         </div>
                         {formData.systemType !== 'On-Grid' && (
                             <input name="batteryBrand" placeholder="Battery Specs" value={formData.batteryBrand} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm" />
@@ -247,7 +285,7 @@ export default function QuotatorPage() {
                     <div className="space-y-4">
                         <h3 className="text-xs font-mono uppercase tracking-widest text-zinc-500 border-b border-zinc-100 pb-2">Commercials</h3>
                         <div className="relative">
-                            <input name="pricePerWatt" type="number" placeholder="Price/Watt" value={formData.pricePerWatt} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm pl-8" />
+                            <input name="pricePerWatt" type="number" placeholder="Overall Value" value={formData.pricePerWatt} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm pl-8" />
                             <span className="absolute left-3 top-3 text-zinc-400 text-sm">₹</span>
                         </div>
                         <div className="bg-[#193354] text-white p-4 rounded-xl">
