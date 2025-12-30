@@ -32,7 +32,9 @@ export default function QuotatorPage() {
         systemCost: '0',
         proposalBy: 'Aditya Suresh Parikh',
         panneloptions: 'Mono Half-Cut Cell',
-        dcrOption: 'NONE'
+        dcrOption: 'NONE',
+        panelCount: '',
+        wp: ''
     });
 
     // Session Log for Excel Export
@@ -221,6 +223,16 @@ export default function QuotatorPage() {
                                 <option value="Azure Power">Azure Power</option>
                             </select>
                         </div>
+                        <div className="grid grid-cols-2 gap-2">
+                            <div>
+                                <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider">Panel Count</label>
+                                <input name="panelCount" type="number" placeholder="Count" value={formData.panelCount} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm" />
+                            </div>
+                            <div>
+                                <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider">WP</label>
+                                <input name="wp" type="number" placeholder="Watt Peak" value={formData.wp} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm" />
+                            </div>
+                        </div>
                         <div>
                             <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider">Solar Panel</label>
                             <select name="panneloptions" value={formData.panneloptions} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm">
@@ -263,7 +275,7 @@ export default function QuotatorPage() {
                             </select>
                         </div>
                         <div>
-                            <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider">Inverter Number / Model</label>
+                            <label className="text-xs font-bold text-zinc-500 block mb-1 uppercase tracking-wider"> INVERTER KW</label>
                             <input name="inverterNumber" placeholder="Inverter Number / Model" value={formData.inverterNumber} onChange={handleInputChange} className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-sm mt-2" />
                         </div>
                         {formData.systemType !== 'On-Grid' && (
