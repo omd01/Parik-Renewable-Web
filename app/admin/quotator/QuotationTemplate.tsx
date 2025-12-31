@@ -23,6 +23,8 @@ export interface QuotationData {
   grandTotal: string;
   systemCost: string;
   proposalBy: string;
+  panelCount: string;
+  wp: string;
 }
 
 interface QuotationTemplateProps {
@@ -47,8 +49,9 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
   const twentyFiveYearSavings = yearlySavings * 25;
 
   // Panel logic: Assume 540Wp panels
-  const panelWattage = 540;
-  const panelQty = Math.ceil((capacity * 1000) / panelWattage);
+  const panelWattage = parseFloat(data.wp) || 540;
+  // If panelCount is provided, use it. Otherwise calculate based on capacity
+  const panelQty = data.panelCount ? parseInt(data.panelCount) : Math.ceil((capacity * 1000) / panelWattage);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -258,7 +261,7 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
                     Yearly Energy Production (Approximate)
                   </td>
                   <td className="p-4 text-center font-semibold">
-                    {capacity * 4} Units (kWh)
+                    {capacity * 4 * 365} Units (kWh)
                   </td>
                 </tr>
 
@@ -275,7 +278,7 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
                       </>
                     )}
                     <br />
-                    ({panelQty} Panels of 540 Wp each)
+                    ({panelQty} Panels of {panelWattage} Wp each)
                   </td>
                 </tr>
 
@@ -463,7 +466,7 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
               <tbody className="divide-y divide-zinc-200 bg-zinc-50/50">
                 {[
                   { sn: '1', item: 'Solar Panels', make: data.panelBrand, check: 'Mono Half-Cut Cell Solar Panel Technology' },
-                  { sn: '2', item: `${data.capacity} KW ${data.systemType} Solar Inverter`, make: data.inverterBrand, check: `${data.capacity} kw Inverter Dual MPPT Technology` },
+                  { sn: '2', item: `${data.inverterNumber || data.capacity} KW ${data.systemType} Solar Inverter`, make: data.inverterBrand, check: `${data.inverterNumber || data.capacity} kw Inverter Dual MPPT Technology` },
                   { sn: '3', item: 'Module Mounting Structure', make: 'Solar Mount', check: 'Galvanized Structure' },
                   { sn: '4', item: 'Module Fixing Clamps', make: 'Nespro', check: 'Aluminium Anodized' },
                   { sn: '5', item: 'DC & AC SPD', make: 'FEEO/Panasonic', check: 'Type - 2' },
