@@ -115,10 +115,28 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* Base screen layout (desktop + mobile preview) */
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  background: #fff;
+}
+
+/* Prevent mobile auto scaling */
+@media screen and (max-width: 768px) {
+  .a4-page {
+    transform: scale(1);
+    transform-origin: top center;
+  }
+}
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
