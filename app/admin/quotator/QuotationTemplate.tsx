@@ -529,16 +529,16 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
       </div>
 
       {/* --- PAGE 6: TERMS & CONTACT --- */}
-      <div className="h-[297mm] relative flex flex-col page-break-after-always bg-white">
-        <div className="p-12 flex-1">
-          <div className="flex justify-between items-center mb-8 border-b border-zinc-200 pb-4">
+      <div className="h-[297mm] relative flex flex-col px-12 pt-8 pb-0 page-break-after-always bg-white">
+        <div className="p-2 flex-1">
+          <div className="flex justify-between items-center mb-4 border-b border-zinc-200 pb-2">
             <span className="text-xl font-bold tracking-tight text-zinc-900">TERMS & CONTACTS</span>
             <span className="font-mono text-xs text-zinc-400">PAGE 06</span>
           </div>
 
           {/* Terms & Conditions */}
-          <div className="mb-10">
-            <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+          <div className="mb-6">
+            <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 flex items-center gap-2">
               <span className="w-2 h-2 bg-black rounded-full"></span>
               07 / Terms & Conditions
             </h4>
@@ -547,9 +547,9 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
               <table className="w-full text-left text-sm">
                 <thead className="bg-zinc-100 text-zinc-700 font-bold uppercase text-[10px] tracking-wider border-b border-zinc-200">
                   <tr>
-                    <th className="p-3 w-12 text-center border-r border-zinc-200">S/N</th>
-                    <th className="p-3 border-r border-zinc-200">Term</th>
-                    <th className="p-3">Details</th>
+                    <th className="p-2 w-12 text-center border-r border-zinc-200">S/N</th>
+                    <th className="p-2 border-r border-zinc-200">Term</th>
+                    <th className="p-2">Details</th>
                   </tr>
                 </thead>
 
@@ -608,13 +608,13 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
                     },
                   ].map((row) => (
                     <tr key={row.sn} className="hover:bg-zinc-50 transition-colors">
-                      <td className="p-2 text-center font-mono text-zinc-500 border-r border-zinc-200">
+                      <td className="p-1.5 text-center font-mono text-zinc-500 border-r border-zinc-200">
                         {row.sn}
                       </td>
-                      <td className="p-2 font-bold text-zinc-800 border-r border-zinc-200">
+                      <td className="p-1.5 font-bold text-zinc-800 border-r border-zinc-200">
                         {row.term}
                       </td>
-                      <td className="p-2 text-zinc-600 leading-relaxed">
+                      <td className="p-1.5 text-zinc-600 leading-relaxed">
                         {row.details}
                       </td>
                     </tr>
@@ -625,14 +625,14 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
           </div>
 
           {/* Bank & Contact Details */}
-          <div className="mb-6">
-            <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+          <div className="mb-2">
+            <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 flex items-center gap-2">
               <span className="w-2 h-2 bg-black rounded-full"></span>
               08 / Bank & Contact Details
             </h4>
 
-            <div className="border border-zinc-200 rounded-xl ring-1 ring-zinc-200 bg-white p-6">
-              <div className="grid grid-cols-3 gap-x-12 gap-y-8 text-sm">
+            <div className="border border-zinc-200 rounded-xl ring-1 ring-zinc-200 bg-white p-4">
+              <div className="grid grid-cols-3 gap-x-8 gap-y-4 text-sm">
                 {/* Official Email */}
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Official Email ID</p>
@@ -680,22 +680,20 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
           </div>
         </div>
 
-        <div className="bg-zinc-950 text-white p-8 print-color-adjust-exact mt-auto">
-          <div className="flex justify-between ">
-            <div className="space-y-2">
-              <h2 className="text-2xl font-bold mb-1">PARIKH RENEWABLE</h2>
+        <div className="bg-zinc-950 text-white py-6 px-12 -mx-12 print-color-adjust-exact mt-auto">
+          <div className="flex justify-between items-center">
+            <div className="space-y-1">
+              <h2 className="text-xl font-bold">PARIKH RENEWABLE</h2>
               <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Mail className="w-3 h-3" /> support@parikhrenewable.com</p>
               <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Phone className="w-3 h-3" /> +91 70833 66625</p>
             </div>
-            <div className="text-right space-y-2">
-              <p className="text-xs text-zinc-300 leading-relaxed">
-                <span className="font-semibold text-white">Address 1:</span>
-                Office No. D 401, Freedom Tower,<br />
+            <div className="text-right space-y-1">
+              <p className="text-[10px] text-zinc-300 leading-relaxed">
+                <span className="font-semibold text-white">Address 1:</span> Office No. D 401, Freedom Tower,<br />
                 Chhatrapati Sambhaji Nagar – 431001
               </p>
-              <p className="text-xs text-zinc-300 leading-relaxed">
-                <span className="font-semibold text-white">Address 2:</span>
-                Teacher Colony Behind S.T Stand,<br />
+              <p className="text-[10px] text-zinc-300 leading-relaxed">
+                <span className="font-semibold text-white">Address 2:</span> Teacher Colony Behind S.T Stand,<br />
                 Beed – 431122
               </p>
             </div>
