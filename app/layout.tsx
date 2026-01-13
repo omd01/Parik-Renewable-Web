@@ -136,7 +136,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${interTight.variable} ${jetbrainsMono.variable} font-sans antialiased bg-zinc-50 text-zinc-900`}>
+      <body
+        className={`${interTight.variable} ${jetbrainsMono.variable} font-sans antialiased bg-zinc-50 text-zinc-900`}
+        suppressHydrationWarning
+      >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

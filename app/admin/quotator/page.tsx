@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { useReactToPrint } from 'react-to-print';
 import * as XLSX from 'xlsx';
 import { QuotationTemplate, QuotationData } from './QuotationTemplate';
 import { Lock, FileSpreadsheet, Printer } from 'lucide-react';
@@ -40,34 +39,58 @@ export default function QuotatorPage() {
     // Session Log for Excel Export
     const [sessionLog, setSessionLog] = useState<QuotationData[]>([]);
 
-    const componentRef = useRef<HTMLDivElement>(null);
+    const handleDownload = async () => {
+        const { toPng } = await import('html-to-image');
+        const jsPDF = (await import('jspdf')).default;
 
-    // FIX: Added pageStyle to remove default browser margins (White Gaps)
-    const handlePrint = useReactToPrint({
-        contentRef: componentRef,
-        documentTitle: `Quotation_${formData.clientName}_${formData.date}`,
-        pageStyle: `
-            @page {
-                size: A4;
-                margin: 0mm;
-            }
-            @media print {
-                body {
-                    margin: 0;
-                    padding: 0;
-                    -webkit-print-color-adjust: exact;
-                }
-                html, body {
-                    height: 100%;
-                    width: 100%;
-                }
-            }
-        `,
-        onAfterPrint: () => {
-            // Add to session log after successful print/save
-            addToSessionLog();
+        const element = document.getElementById('hidden-print-container');
+        if (!element) {
+            alert("Template not found!");
+            return;
         }
-    });
+
+        const target = element.firstElementChild as HTMLElement;
+        if (!target) return;
+
+        try {
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Get all direct children (pages) of the template
+            // Filter to only include the page divs (ignore style tags etc if any)
+            const pages = Array.from(target.children).filter(child => child.tagName === 'DIV');
+
+            for (let i = 0; i < pages.length; i++) {
+                const page = pages[i] as HTMLElement;
+
+                // Skip if hidden or zero height
+                if (page.clientHeight === 0) continue;
+
+                // Capture the page
+                const imgData = await toPng(page, { quality: 0.95, backgroundColor: '#ffffff', pixelRatio: 2 });
+
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                if (i > 0) {
+                    pdf.addPage();
+                }
+
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            }
+
+            pdf.save(`Quotation_${formData.clientName}_${formData.date}.pdf`);
+            addToSessionLog();
+        } catch (error) {
+            console.error("PDF Generation failed:", error);
+            alert("Failed to generate PDF. Check console for details.");
+        }
+    };
+
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
@@ -308,7 +331,7 @@ export default function QuotatorPage() {
 
                     {/* Actions */}
                     <div className="pt-4 space-y-3">
-                        <button onClick={handlePrint} className="w-full bg-[#F0B448] text-[#193354] font-bold py-3 rounded-xl hover:bg-[#d9a03e] transition-colors flex items-center justify-center gap-2">
+                        <button onClick={handleDownload} className="w-full bg-[#F0B448] text-[#193354] font-bold py-3 rounded-xl hover:bg-[#d9a03e] transition-colors flex items-center justify-center gap-2">
                             <Printer className="w-5 h-5" /> Generate PDF
                         </button>
                         <button onClick={handleExportExcel} className="w-full bg-zinc-100 text-zinc-700 font-bold py-3 rounded-xl hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2">
@@ -326,9 +349,9 @@ export default function QuotatorPage() {
                 </div>
             </div>
 
-            {/* HIDDEN PRINT COMPONENT */}
-            <div style={{ display: 'none' }}>
-                <QuotationTemplate ref={componentRef} data={formData} />
+            {/* HIDDEN PRINT COMPONENT - Positioned off-screen so html-to-image can capture it without it being invisible in DOM */}
+            <div id="hidden-print-container" style={{ position: 'absolute', top: '-10000px', left: '-10000px' }}>
+                <QuotationTemplate data={formData} />
             </div>
 
         </div>

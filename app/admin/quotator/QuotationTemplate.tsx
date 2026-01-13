@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CheckCircle2, ShieldCheck, Factory, Zap, Award, MapPin, Phone, Mail, Building2 } from 'lucide-react';
 
 export interface QuotationData {
@@ -35,7 +35,12 @@ interface QuotationTemplateProps {
 export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTemplateProps>(({ data, className }, ref) => {
   // Calculations for the template
   const [amount, setAmount] = useState("");
-  const [submittedAmount, setSubmittedAmount] = useState(null);
+  const [submittedAmount, setSubmittedAmount] = useState<string | null>(null);
+  const [refNumber, setRefNumber] = useState<string>("000");
+
+  useEffect(() => {
+    setRefNumber(Math.floor(Math.random() * 1000).toString().padStart(3, '0'));
+  }, []);
 
   const capacity = parseFloat(data.capacity) || 0;
   const yearlyGen = Math.round(capacity * 1440);
@@ -53,7 +58,7 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
   // If panelCount is provided, use it. Otherwise calculate based on capacity
   const panelQty = data.panelCount ? parseInt(data.panelCount) : Math.ceil((capacity * 1000) / panelWattage);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!amount) return;
     setSubmittedAmount(amount);
@@ -61,7 +66,7 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
 
   return (
     // FIX: Ensure width matches A4 exactly (210mm) and handle overflow
-    <div ref={ref} className={`w-[210mm]  bg-white text-zinc-900 font-sans leading-normal ${className || ''}`}>
+    <div ref={ref} id="invoice-pdf-capture-target" className={`w-[210mm] min-w-[210mm] max-w-[210mm] overflow-hidden bg-white text-zinc-900 font-sans leading-normal ${className || ''}`}>
 
       {/* --- PAGE 1: COVER --- */}
       <div className="h-[297mm] relative flex flex-col page-break-after-always overflow-hidden bg-zinc-900 text-white print-color-adjust-exact">
@@ -108,7 +113,7 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
 
             <div className="border border-white/10 bg-white/5 backdrop-blur-md px-6 py-2 rounded-full">
               <span className="text-sm font-mono text-yellow-500 tracking-wider">
-                REF: PR-{new Date().getFullYear()}-{Math.floor(Math.random() * 1000)}
+                REF: PR-{new Date().getFullYear()}-{refNumber}
               </span>
             </div>
           </div>
@@ -523,219 +528,176 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
 
       </div>
 
-      {/* Terms & Conditions */}
-      <div className="m-12 mt-6">
-        <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-          <span className="w-2 h-2 bg-black rounded-full"></span>
-          07 / Terms & Conditions
-        </h4>
+      {/* --- PAGE 6: TERMS & CONTACT --- */}
+      <div className="h-[297mm] relative flex flex-col px-12 pt-8 pb-0 page-break-after-always bg-white">
+        <div className="p-2 flex-1">
+          <div className="flex justify-between items-center mb-4 border-b border-zinc-200 pb-2">
+            <span className="text-xl font-bold tracking-tight text-zinc-900">TERMS & CONTACTS</span>
+            <span className="font-mono text-xs text-zinc-400">PAGE 06</span>
+          </div>
 
-        <div className="border border-zinc-200 rounded-xl overflow-hidden ring-1 ring-zinc-200">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-zinc-100 text-zinc-700 font-bold uppercase text-[10px] tracking-wider border-b border-zinc-200">
-              <tr>
-                <th className="p-3 w-12 text-center border-r border-zinc-200">S/N</th>
-                <th className="p-3 border-r border-zinc-200">Term</th>
-                <th className="p-3">Details</th>
-              </tr>
-            </thead>
+          {/* Terms & Conditions */}
+          <div className="mb-6">
+            <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+              <span className="w-2 h-2 bg-black rounded-full"></span>
+              07 / Terms & Conditions
+            </h4>
 
-            <tbody className="divide-y divide-zinc-200 bg-zinc-50/50">
-              {[
-                {
-                  sn: "1",
-                  term: "Installation, Packaging & Forwarding",
-                  details: "Included",
-                },
-                {
-                  sn: "2",
-                  term: "Load Extension Charges",
-                  details: "At client scope",
-                },
-                {
-                  sn: "3",
-                  term: "Warranty – Solar Panels",
-                  details:
-                    "Provided by manufacturer. 12 Years product warranty and 27 Years power output warranty.",
-                },
-                {
-                  sn: "4",
-                  term: "Warranty – Inverter",
-                  details: "10 Years manufacturer warranty",
-                },
-                {
-                  sn: "5",
-                  term: "Annual Maintenance Charges",
-                  details:
-                    "Free for first 2 years. For the next 3 years, support is limited to technical issues only (excluding glass breakage, fire, earthquake, and cyclones).",
-                },
-                {
-                  sn: "6",
-                  term: "Payment Terms",
-                  details:
-                    "50% advance, 30% after material delivery at site, and 20% after commissioning.",
-                },
-                {
-                  sn: "7",
-                  term: "Project Delivery Timeline",
-                  details:
-                    "15–20 days from the date of purchase order confirmation.",
-                },
-                {
-                  sn: "8",
-                  term: "Design Changes",
-                  details:
-                    "Any changes in design requested by the client will attract additional charges.",
-                },
-                {
-                  sn: "9",
-                  term: "Structure Height",
-                  details:
-                    "Standard structure height considered is 6 ft. Any increase will be chargeable.",
-                },
-              ].map((row) => (
-                <tr key={row.sn} className="hover:bg-zinc-50 transition-colors">
-                  <td className="p-2 text-center font-mono text-zinc-500 border-r border-zinc-200">
-                    {row.sn}
-                  </td>
-                  <td className="p-2 font-bold text-zinc-800 border-r border-zinc-200">
-                    {row.term}
-                  </td>
-                  <td className="p-2 text-zinc-600 leading-relaxed">
-                    {row.details}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            <div className="border border-zinc-200 rounded-xl overflow-hidden ring-1 ring-zinc-200">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-zinc-100 text-zinc-700 font-bold uppercase text-[10px] tracking-wider border-b border-zinc-200">
+                  <tr>
+                    <th className="p-2 w-12 text-center border-r border-zinc-200">S/N</th>
+                    <th className="p-2 border-r border-zinc-200">Term</th>
+                    <th className="p-2">Details</th>
+                  </tr>
+                </thead>
 
-
-
-      {/* --- BANK & CONTACT DETAILS --- */}
-      <div className="m-12 mb-10 mt-6">
-        <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-          <span className="w-2 h-2 bg-black rounded-full"></span>
-          08 / Bank & Contact Details
-        </h4>
-
-        <div className="border border-zinc-200 rounded-xl ring-1 ring-zinc-200 bg-white p-6">
-
-          <div className="grid grid-cols-3 gap-x-12 gap-y-8 text-sm">
-
-            {/* Official Email */}
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
-                Official Email ID
-              </p>
-              <p className="font-medium text-zinc-800">
-                Support@parikhrenewable.com
-              </p>
+                <tbody className="divide-y divide-zinc-200 bg-zinc-50/50">
+                  {[
+                    {
+                      sn: "1",
+                      term: "Installation, Packaging & Forwarding",
+                      details: "Included",
+                    },
+                    {
+                      sn: "2",
+                      term: "Load Extension Charges",
+                      details: "At client scope",
+                    },
+                    {
+                      sn: "3",
+                      term: "Warranty – Solar Panels",
+                      details:
+                        "Provided by manufacturer. 12 Years product warranty and 27 Years power output warranty.",
+                    },
+                    {
+                      sn: "4",
+                      term: "Warranty – Inverter",
+                      details: "10 Years manufacturer warranty",
+                    },
+                    {
+                      sn: "5",
+                      term: "Annual Maintenance Charges",
+                      details:
+                        "Free for first 2 years. For the next 3 years, support is limited to technical issues only (excluding glass breakage, fire, earthquake, and cyclones).",
+                    },
+                    {
+                      sn: "6",
+                      term: "Payment Terms",
+                      details:
+                        "50% advance, 30% after material delivery at site, and 20% after commissioning.",
+                    },
+                    {
+                      sn: "7",
+                      term: "Project Delivery Timeline",
+                      details:
+                        "15–20 days from the date of purchase order confirmation.",
+                    },
+                    {
+                      sn: "8",
+                      term: "Design Changes",
+                      details:
+                        "Any changes in design requested by the client will attract additional charges.",
+                    },
+                    {
+                      sn: "9",
+                      term: "Structure Height",
+                      details:
+                        "Standard structure height considered is 6 ft. Any increase will be chargeable.",
+                    },
+                  ].map((row) => (
+                    <tr key={row.sn} className="hover:bg-zinc-50 transition-colors">
+                      <td className="p-1.5 text-center font-mono text-zinc-500 border-r border-zinc-200">
+                        {row.sn}
+                      </td>
+                      <td className="p-1.5 font-bold text-zinc-800 border-r border-zinc-200">
+                        {row.term}
+                      </td>
+                      <td className="p-1.5 text-zinc-600 leading-relaxed">
+                        {row.details}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
+          </div>
 
-            {/* Account Name */}
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
-                Account Name
-              </p>
-              <p className="font-medium text-zinc-800">
-                Parikh Renewable Pvt. Ltd.
-              </p>
+          {/* Bank & Contact Details */}
+          <div className="mb-2">
+            <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+              <span className="w-2 h-2 bg-black rounded-full"></span>
+              08 / Bank & Contact Details
+            </h4>
+
+            <div className="border border-zinc-200 rounded-xl ring-1 ring-zinc-200 bg-white p-4">
+              <div className="grid grid-cols-3 gap-x-8 gap-y-4 text-sm">
+                {/* Official Email */}
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Official Email ID</p>
+                  <p className="font-medium text-zinc-800">Support@parikhrenewable.com</p>
+                </div>
+                {/* Account Name */}
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Account Name</p>
+                  <p className="font-medium text-zinc-800">Parikh Renewable Pvt. Ltd.</p>
+                </div>
+                {/* Account Number */}
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Account No</p>
+                  <p className="font-mono text-zinc-800">777705118322</p>
+                </div>
+                {/* Mobile */}
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Mobile Number</p>
+                  <p className="font-medium text-zinc-800">+91 70833 66625</p>
+                </div>
+                {/* IFSC */}
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">IFSC Code</p>
+                  <p className="font-mono text-zinc-800">ICICI0007696</p>
+                </div>
+                {/* Bank */}
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Bank Name</p>
+                  <p className="font-medium text-zinc-800">ICICI Bank</p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">Branch</p>
+                  <p className="font-medium text-zinc-800">Chhatrapti Sambhaji Nagar</p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">GST</p>
+                  <p className="font-medium text-zinc-800">27AAQCP3772M2ZX</p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">CIN</p>
+                  <p className="font-medium text-zinc-800">U43222MH2025PTC461018</p>
+                </div>
+              </div>
             </div>
-
-            {/* Account Number */}
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
-                Account No
-              </p>
-              <p className="font-mono text-zinc-800">
-                777705118322
-              </p>
-            </div>
-
-            {/* Mobile */}
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
-                Mobile Number
-              </p>
-              <p className="font-medium text-zinc-800">
-                +91 70833 66625
-              </p>
-            </div>
-
-            {/* IFSC */}
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
-                IFSC Code
-              </p>
-              <p className="font-mono text-zinc-800">
-                ICICI0007696
-              </p>
-            </div>
-
-            {/* Bank */}
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
-                Bank Name
-              </p>
-              <p className="font-medium text-zinc-800">
-                ICICI Bank
-              </p>
-            </div>
-
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
-                Branch
-              </p>
-              <p className="font-medium text-zinc-800">
-                Chhatrapti Sambhaji Nagar
-              </p>
-            </div>
-
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
-                GST
-              </p>
-              <p className="font-medium text-zinc-800">
-                27AAQCP3772M2ZX
-              </p>
-            </div>
-
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">
-                CIN
-              </p>
-              <p className="font-medium text-zinc-800">
-                U43222MH2025PTC461018
-              </p>
-            </div>
-
           </div>
         </div>
-      </div>
 
-      <div className="bg-zinc-950 text-white p-8  print-color-adjust-exact">
-        <div className="flex justify-between ">
-          <div className="space-y-2">
-            <h2 className="text-2xl font-bold mb-1">PARIKH RENEWABLE</h2>
-            <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Mail className="w-3 h-3" /> support@parikhrenewable.com</p>
-            <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Phone className="w-3 h-3" /> +91 70833 66625</p>
+        <div className="bg-zinc-950 text-white py-6 px-12 -mx-12 print-color-adjust-exact mt-auto">
+          <div className="flex justify-between items-center">
+            <div className="space-y-1">
+              <h2 className="text-xl font-bold">PARIKH RENEWABLE</h2>
+              <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Mail className="w-3 h-3" /> support@parikhrenewable.com</p>
+              <p className="text-xs text-zinc-400 flex items-center gap-2 font-mono"><Phone className="w-3 h-3" /> +91 70833 66625</p>
+            </div>
+            <div className="text-right space-y-1">
+              <p className="text-[10px] text-zinc-300 leading-relaxed">
+                <span className="font-semibold text-white">Address 1:</span> Office No. D 401, Freedom Tower,<br />
+                Chhatrapati Sambhaji Nagar – 431001
+              </p>
+              <p className="text-[10px] text-zinc-300 leading-relaxed">
+                <span className="font-semibold text-white">Address 2:</span> Teacher Colony Behind S.T Stand,<br />
+                Beed – 431122
+              </p>
+            </div>
           </div>
-          <div className="text-right space-y-2">
-            <p className="text-xs text-zinc-300 leading-relaxed">
-              <span className="font-semibold text-white">Address 1:</span>
-              Office No. D 401, Freedom Tower,<br />
-              Chhatrapati Sambhaji Nagar – 431001
-            </p>
-
-            <p className="text-xs text-zinc-300 leading-relaxed">
-              <span className="font-semibold text-white">Address 2:</span>
-              Teacher Colony Behind S.T Stand,<br />
-              Beed – 431122
-            </p>
-          </div>
-
         </div>
       </div>
 
