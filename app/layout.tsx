@@ -77,6 +77,11 @@ export const metadata: Metadata = {
     ],
     apple: '/icon.png',
   },
+  verification: {
+    other: {
+      'facebook-domain-verification': '8jurbmoghnfawc1wyk9ml7i4g4ww86',
+    },
+  },
 }
 
 const jsonLd = {
