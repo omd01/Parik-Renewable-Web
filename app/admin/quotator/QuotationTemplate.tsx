@@ -656,7 +656,7 @@ export const QuotationTemplate = React.forwardRef<HTMLDivElement, QuotationTempl
                 {/* IFSC */}
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1">IFSC Code</p>
-                  <p className="font-mono text-zinc-800">ICICI0007696</p>
+                  <p className="font-mono text-zinc-800">ICIC0007696</p>
                 </div>
                 {/* Bank */}
                 <div>
